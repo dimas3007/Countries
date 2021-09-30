@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getCallingCode, getCurrency } from '../../config/api';
 import { globeIcon } from '../../assets/img';
 import { Button } from '../../components';
 
 const DetailCountries = () => {
   const history = useHistory();
-  const countries = useSelector(state => state.countries[0]);
-
-  const [currency, setCurrency] = useState([]);
-  const [calling, setCalling] = useState([]);
-
-  useEffect(() => {
-    getCallingCode(countries?.callingCodes[0])
-      .then(res => {
-        setCurrency(res);
-      })
-      .catch(() => {});
-    getCurrency(countries?.currencies[0].code)
-      .then(res => {
-        setCalling(res);
-      })
-      .catch(() => {});
-  }, [countries]);
+  const { countries, calling, currency } = useSelector(
+    state => state.countries
+  );
 
   return (
     <Container>
@@ -69,11 +54,13 @@ const DetailCountries = () => {
             <h5>Calling Code</h5>
             <h1>{countries?.callingCodes[0]}</h1>
             <div className="tooltip">
-              <span className="underline">{calling.length} Country</span>
+              <span className="underline">{calling?.length} Country</span>
               <span> with this calling code</span>
-              <div className={`tooltip-text ${calling.length > 5 && 'scroll'}`}>
+              <div
+                className={`tooltip-text ${calling?.length > 5 && 'scroll'}`}
+              >
                 <ul>
-                  {calling.length &&
+                  {calling?.length &&
                     calling?.map((call, index) => (
                       <li key={index}>{call.name}</li>
                     ))}
@@ -86,13 +73,13 @@ const DetailCountries = () => {
             <h5>Currency</h5>
             <h1>{countries?.currencies[0].code}</h1>
             <div className="tooltip">
-              <span className="underline">{currency.length} Country</span>
+              <span className="underline">{currency?.length} Country</span>
               <span> with this currency</span>
               <div
-                className={`tooltip-text ${calling.length >= 5 && 'scroll'}`}
+                className={`tooltip-text ${calling?.length >= 5 && 'scroll'}`}
               >
                 <ul>
-                  {currency.length &&
+                  {currency?.length &&
                     currency?.map((currency, index) => (
                       <li key={index}>{currency.name}</li>
                     ))}

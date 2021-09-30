@@ -13,6 +13,9 @@ const Routes = () => {
           <Route path="/detail">
             <DetailCountries />
           </Route>
+          <Route>
+            <Search />
+          </Route>
         </Switch>
       </Router>
     </div>

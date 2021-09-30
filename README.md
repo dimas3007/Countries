@@ -28,3 +28,5 @@ data dari website ini diambil dari API https://restcountries.com/
 - Axios
 
 # Screenshot
+![Search](contributing/img/search.PNG)
+![Detail](contributing/img/detail.PNG)
